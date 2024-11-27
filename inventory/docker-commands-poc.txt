@@ -1,0 +1,8 @@
+docker build --build-arg VERSION=0.0.2-SNAPSHOT -t inventory-service .
+
+docker compose up --build
+
+
+-- better these ones
+docker compose build
+docker compose up -d
