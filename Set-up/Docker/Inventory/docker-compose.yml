@@ -7,10 +7,11 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
-      SPRING_POSTGRES_DB: inventorydb
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/inventorydb
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_POSTGRES_DB=inventorydb
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/inventorydb
+      - SPRING_PROFILES_ACTIVE=dev  # Set Spring profile to 'dev'
     networks:
       - app-network
     depends_on:
