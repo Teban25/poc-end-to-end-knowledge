@@ -1,7 +1,9 @@
 package com.davids.pocs.inventory.controller;
 
+import com.davids.pocs.inventory.controller.response.ApiResponse;
 import com.davids.pocs.inventory.model.Product;
 import com.davids.pocs.inventory.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,12 @@ public class ProductController {
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/sku")
+    public ApiResponse<Product> getProductBySku(@RequestParam String sku) {
+        Product productFound = productService.getProductBySku(sku);
+        return new ApiResponse<>(HttpStatus.OK.value(),"Product retrieved successfully", productFound);
     }
 
     @PostMapping

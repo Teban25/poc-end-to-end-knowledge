@@ -1,5 +1,7 @@
 package com.davids.pocs.inventory.service;
 
+import com.davids.pocs.inventory.exception.APIInventoryException;
+import com.davids.pocs.inventory.exception.model.InventoryErrorCode;
 import com.davids.pocs.inventory.model.Product;
 import com.davids.pocs.inventory.repository.ProductRepository;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
@@ -23,6 +25,14 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    public Product getProductBySku(String sku) {
+        return productRepository
+                .findBySku(sku)
+                .orElseThrow(() -> new APIInventoryException(
+                        InventoryErrorCode.PRODUCT_NOT_FOUND,
+                        String.format("SKU %s was not found", sku)));
     }
 
     public Product saveProduct(Product product) {
